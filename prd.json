@@ -35,7 +35,7 @@
         "Table 'users' exists with columns: id, username, password_hash, role, created_at",
         "Seed script created to populate initial dummy data for all tables"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "3_CORE_COMPONENTS",

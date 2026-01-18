@@ -4,6 +4,8 @@
 - Tailwind 4.x uses `@import "tailwindcss"` and `@theme` block for custom colors
 - ESLint config should have separate sections for frontend (src/) and backend (server/) with appropriate globals
 - Use `concurrently` to run frontend and backend dev servers together
+- better-sqlite3 uses WAL mode by default; add `*.db-shm` and `*.db-wal` to .gitignore
+- Use `db.transaction()` for bulk inserts in better-sqlite3 for performance
 
 ---
 
@@ -40,5 +42,37 @@ Thread: N/A (first task)
 - Tailwind 4.x has new configuration syntax with @theme block instead of tailwind.config.js
 - Express 5.x is now stable and used in this project
 - Need to use `_` prefix for unused args in Express error handlers to satisfy ESLint
+
+---
+
+## 2026-01-17 - 2_DATABASE_INIT
+
+Thread: N/A
+
+**Implemented:**
+
+- Installed better-sqlite3 package for SQLite database access
+- Created database initialization in server/db/index.js with three tables:
+  - reservations: id, name, email, phone, date, time, party_size, table_num, special_requests, created_at
+  - menu_items: id, name, description, price, category, image_url, is_available
+  - users: id, username, password_hash, role, created_at
+- Created seed script (server/db/seed.js) with 14 menu items, 3 reservations, and 1 admin user
+- Added npm script `db:seed` to run the seed script
+- Updated .gitignore to include WAL-mode database files (*.db-shm, *.db-wal)
+
+**Files Changed:**
+
+- package.json
+- package-lock.json
+- server/db/index.js
+- server/db/seed.js
+- .gitignore
+
+**Learnings:**
+
+- better-sqlite3 sets WAL mode via `db.pragma('journal_mode = WAL')` which creates .db-shm and .db-wal files
+- Use `db.transaction()` to wrap bulk inserts for better performance
+- Tables use `IF NOT EXISTS` for idempotent migrations
+- Database file is stored at server/restaurant.db (relative to server directory)
 
 ---
