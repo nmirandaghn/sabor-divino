@@ -1,0 +1,44 @@
+## Codebase Patterns
+
+- Use `argsIgnorePattern: '^_'` in ESLint for unused function parameters in Express middleware
+- Tailwind 4.x uses `@import "tailwindcss"` and `@theme` block for custom colors
+- ESLint config should have separate sections for frontend (src/) and backend (server/) with appropriate globals
+- Use `concurrently` to run frontend and backend dev servers together
+
+---
+
+## 2026-01-17 - 1_INFRA_SETUP
+
+Thread: N/A (first task)
+
+**Implemented:**
+
+- Initialized Vite React 19 project
+- Installed and configured Tailwind CSS 4.x with custom colors (primary=brown, secondary=gold, accent=green)
+- Created Express 5.x server structure in /server directory
+- Configured concurrent execution script (`npm run dev` runs both frontend and backend)
+- Setup environment configuration (.env, .env.example) for PORT, CORS_ORIGIN, VITE_API_URL
+- Configured ESLint with separate rules for frontend (browser globals) and backend (node globals)
+
+**Files Changed:**
+
+- package.json
+- vite.config.js
+- src/index.css
+- eslint.config.js
+- server/index.js
+- server/routes/index.js
+- server/middleware/asyncHandler.js
+- server/db/index.js (placeholder)
+- .env
+- .env.example
+- .gitignore
+
+**Learnings:**
+
+- Vite 7.x create command won't work in a non-empty directory; create in temp folder and move files
+- Tailwind 4.x has new configuration syntax with @theme block instead of tailwind.config.js
+- Express 5.x is now stable and used in this project
+- Need to use `_` prefix for unused args in Express error handlers to satisfy ESLint
+
+---
