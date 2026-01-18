@@ -10,6 +10,8 @@
 - Components organized as: `src/components/layout/` (Navbar, Footer, Layout), `src/components/ui/` (Spinner, Skeleton), `src/pages/`
 - API routes organized in `server/routes/`: individual route files (e.g., reservations.js) mounted in index.js
 - Validation middleware pattern: `server/middleware/validateX.js` exports middleware that validates req.body and calls next()
+- Toast notification pattern: `src/components/ui/Toast.jsx` with auto-dismiss timer, success/error types
+- Form validation pattern: mirror backend regex patterns on client-side for consistency
 
 ---
 
@@ -180,5 +182,38 @@ Thread: N/A
 - SVG images work well as placeholders for development; replace with real photos in production
 - Use `bg-black/40` overlay on hero background images to ensure text readability
 - Responsive grid: `grid-cols-1 md:grid-cols-2 lg:grid-cols-3` for featured items
+
+---
+
+## 2026-01-17 - 6_RESERVATION_UI
+
+Thread: N/A
+
+**Implemented:**
+
+- Created Reservations page with complete reservation form
+- Added native date picker with min/max date constraints (today to 60 days out)
+- Added time selector dropdown with 30-minute intervals from 11:00 AM to 9:00 PM
+- Implemented party size selector (1-20 guests)
+- Added email and phone input fields with client-side validation matching backend patterns
+- Added special requests textarea (optional field)
+- Connected form to POST /api/reservations endpoint using fetch
+- Created Toast component for success/error notifications
+- Added loading state with Spinner component during submission
+- Added field-level validation on blur with error messages
+
+**Files Changed:**
+
+- src/pages/Reservations.jsx (new)
+- src/components/ui/Toast.jsx (new)
+- src/components/ui/index.js
+- src/App.jsx
+
+**Learnings:**
+
+- Use `no-case-declarations` ESLint fix: wrap switch case blocks in `{}` when declaring variables
+- Client-side validation should mirror backend validation patterns for consistency
+- Use `import.meta.env.VITE_API_URL` for environment variables in Vite
+- Time slots can be generated programmatically with helper functions rather than hardcoded arrays
 
 ---

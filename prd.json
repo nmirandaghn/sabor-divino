@@ -96,7 +96,7 @@
         "Fetch request connected to POST endpoint",
         "Success/Error toast notifications implemented"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "7_STATIC_PAGES",
