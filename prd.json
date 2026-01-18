@@ -3,7 +3,7 @@
     "name": "Sabor Divino Restaurant",
     "stack": "React (Vite), Tailwind CSS, Node.js (Express), Better-SQLite3",
     "branchName": "feature/sabor-divino",
-    "global_status": "pending"
+    "global_status": "complete"
   },
   "tasks": [
     {
@@ -139,7 +139,7 @@
         "Admin dashboard displaying reservations list",
         "Ability to delete/cancel reservations from admin panel"
       ],
-      "passes": false
+      "passes": true
     }
   ]
 }

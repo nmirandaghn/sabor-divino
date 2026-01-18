@@ -12,6 +12,9 @@
 - Validation middleware pattern: `server/middleware/validateX.js` exports middleware that validates req.body and calls next()
 - Toast notification pattern: `src/components/ui/Toast.jsx` with auto-dismiss timer, success/error types
 - Form validation pattern: mirror backend regex patterns on client-side for consistency
+- JWT auth pattern: `server/middleware/requireAuth.js` verifies Bearer token and attaches user to req.user
+- Admin routes: use `router.use(requireAuth)` at top of router to protect all routes in file
+- For unused catch errors in ES2019+, use `catch {` instead of `catch (_err)` to satisfy ESLint
 
 ---
 
@@ -272,5 +275,48 @@ Thread: N/A
 - Group API data client-side using `reduce()` for category grouping
 - Use `onError` handler on img elements with fallback for missing images
 - Contact form is visual-only (no backend endpoint) - uses local state for UX feedback
+
+---
+
+## 2026-01-17 - 9_ADMIN_AUTH
+
+Thread: N/A
+
+**Implemented:**
+
+- Created POST /api/auth/login endpoint with JWT token generation using jsonwebtoken and bcryptjs
+- Created GET /api/auth/verify endpoint to validate JWT tokens
+- Created requireAuth middleware at server/middleware/requireAuth.js for protecting admin routes
+- Created admin router at server/routes/admin.js with protected endpoints
+- Implemented GET /api/admin/reservations to fetch all reservations
+- Implemented DELETE /api/admin/reservations/:id to cancel reservations
+- Created AdminLogin page with username/password form and token storage in localStorage
+- Created AdminDashboard page displaying reservations in table format with stats cards
+- Added delete/cancel functionality with confirmation dialog
+- Added logout functionality
+- Updated seed script to use bcrypt for proper password hashing
+- Added JWT_SECRET and JWT_EXPIRES_IN to environment configuration
+
+**Files Changed:**
+
+- package.json
+- package-lock.json
+- server/routes/auth.js (new)
+- server/routes/admin.js (new)
+- server/routes/index.js
+- server/middleware/requireAuth.js (new)
+- server/db/seed.js
+- src/pages/AdminLogin.jsx (new)
+- src/pages/AdminDashboard.jsx (new)
+- src/App.jsx
+- .env
+- .env.example
+
+**Learnings:**
+
+- For unused catch errors in ES2019+, use `catch {` without a parameter instead of `catch (_err)` - ESLint's argsIgnorePattern doesn't apply to catch clause bindings
+- Admin routes placed outside the main Layout component to have a separate UI
+- Store JWT token in localStorage and include in Authorization header as Bearer token
+- Use useCallback for functions referenced in useEffect dependency arrays to prevent infinite loops
 
 ---
