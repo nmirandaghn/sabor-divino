@@ -1,3 +1,4 @@
+import bcrypt from 'bcryptjs'
 import db from './index.js'
 
 // Clear existing data
@@ -65,10 +66,10 @@ const insertManyReservations = db.transaction((items) => {
 
 insertManyReservations(reservations)
 
-// Seed admin user (password: admin123 - hashed with bcrypt, but we'll use a placeholder for now)
-// In production, this should be properly hashed
+// Seed admin user (password: admin123)
+const adminPasswordHash = bcrypt.hashSync('admin123', 10)
 const users = [
-  { username: 'admin', password_hash: '$2b$10$placeholder_hash_for_admin123', role: 'admin' },
+  { username: 'admin', password_hash: adminPasswordHash, role: 'admin' },
 ]
 
 const insertUser = db.prepare(`
