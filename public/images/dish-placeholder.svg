@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250" fill="none">
+  <rect width="400" height="250" fill="#F5F0EB"/>
+  <circle cx="200" cy="110" r="60" stroke="#8B7355" stroke-width="3" fill="none"/>
+  <ellipse cx="200" cy="115" rx="45" ry="35" fill="#D4C4B0"/>
+  <path d="M175 90 C175 90 200 70 225 90" stroke="#8B7355" stroke-width="2" fill="none"/>
+  <circle cx="180" cy="105" r="5" fill="#A67C52"/>
+  <circle cx="205" cy="100" r="6" fill="#7B9E6B"/>
+  <circle cx="220" cy="110" r="4" fill="#C45C4A"/>
+  <path d="M170 140 L175 125" stroke="#8B7355" stroke-width="2"/>
+  <path d="M230 140 L225 125" stroke="#8B7355" stroke-width="2"/>
+  <text x="200" y="200" text-anchor="middle" fill="#8B7355" font-family="system-ui" font-size="14">Image unavailable</text>
+</svg>
