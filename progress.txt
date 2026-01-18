@@ -8,6 +8,8 @@
 - Use `db.transaction()` for bulk inserts in better-sqlite3 for performance
 - React Router v6+: Use `<Layout>` with `<Outlet />` for nested routes; `NavLink` for active styling
 - Components organized as: `src/components/layout/` (Navbar, Footer, Layout), `src/components/ui/` (Spinner, Skeleton), `src/pages/`
+- API routes organized in `server/routes/`: individual route files (e.g., reservations.js) mounted in index.js
+- Validation middleware pattern: `server/middleware/validateX.js` exports middleware that validates req.body and calls next()
 
 ---
 
@@ -117,5 +119,35 @@ Thread: N/A
 - NavLink provides `isActive` prop via render function for active state styling
 - Mobile menu toggle pattern: useState for isOpen, conditional rendering for mobile nav
 - Tailwind's `min-h-screen` with flex layout ensures footer stays at bottom
+
+---
+
+## 2026-01-17 - 5_API_DEV
+
+Thread: N/A
+
+**Implemented:**
+
+- Created reservations API router at server/routes/reservations.js
+- Implemented POST /api/reservations with input validation
+- Implemented GET /api/reservations with optional ?date=YYYY-MM-DD filter
+- Implemented GET /api/reservations/:id for single reservation lookup
+- Implemented DELETE /api/reservations/:id for reservation cancellation
+- Created validation middleware at server/middleware/validateReservation.js
+- Validation covers: name (min 2 chars), email (regex), phone (regex), date (YYYY-MM-DD, not past), time (HH:MM), party_size (1-20)
+- Updated server/routes/index.js to mount reservations router
+
+**Files Changed:**
+
+- server/routes/reservations.js (new)
+- server/middleware/validateReservation.js (new)
+- server/routes/index.js
+
+**Learnings:**
+
+- Use parameterized queries with better-sqlite3 `.prepare().run()` and `.all()` for safety
+- Express router pattern: create Router() in separate file, export it, mount with `router.use('/path', importedRouter)`
+- Return 404 with `{ error: 'message' }` for not found resources
+- Return 201 for successful POST creations with `{ data, message }`
 
 ---

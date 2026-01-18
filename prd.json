@@ -80,7 +80,7 @@
         "Input validation implemented (date, time, name, email, phone, party_size)",
         "Data successfully persists to SQLite"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "6_RESERVATION_UI",
