@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import reservationsRouter from './reservations.js'
+import menuRouter from './menu.js'
 
 const router = Router()
 
@@ -10,5 +11,6 @@ router.get('/', (req, res) => {
 
 // Mount route modules
 router.use('/reservations', reservationsRouter)
+router.use('/menu', menuRouter)
 
 export default router
