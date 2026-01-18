@@ -111,7 +111,7 @@
         "Menu page fetching items from /api/menu endpoint",
         "Menu items grouped by category"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "8_MENU_API",

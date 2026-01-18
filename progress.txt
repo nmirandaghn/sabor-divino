@@ -242,3 +242,35 @@ Thread: N/A
 - Menu items filtered by `is_available = 1` to only show available items
 
 ---
+
+## 2026-01-17 - 7_STATIC_PAGES
+
+Thread: N/A
+
+**Implemented:**
+
+- Created About page with restaurant story, philosophy section, and team profiles
+- Created Contact page with visual contact form (non-functional), address, phone, email info
+- Contact page displays operating hours matching Footer data
+- Created Menu page that fetches items from /api/menu endpoint
+- Menu items grouped by category with sticky navigation buttons
+- Added category navigation with smooth scroll to section
+- Added fallback image placeholder for failed image loads
+- Updated App.jsx with routes for /menu, /about, and /contact
+
+**Files Changed:**
+
+- src/pages/About.jsx (new)
+- src/pages/Contact.jsx (new)
+- src/pages/Menu.jsx (new)
+- src/App.jsx
+- public/images/dish-placeholder.svg (new)
+
+**Learnings:**
+
+- Use `scroll-mt-20` utility class to offset scroll position when using sticky headers
+- Group API data client-side using `reduce()` for category grouping
+- Use `onError` handler on img elements with fallback for missing images
+- Contact form is visual-only (no backend endpoint) - uses local state for UX feedback
+
+---
