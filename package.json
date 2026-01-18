@@ -9,9 +9,11 @@
     "dev:server": "node server/index.js",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "db:seed": "node server/db/seed.js"
   },
   "dependencies": {
+    "better-sqlite3": "^12.6.2",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
