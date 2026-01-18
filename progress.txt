@@ -6,6 +6,8 @@
 - Use `concurrently` to run frontend and backend dev servers together
 - better-sqlite3 uses WAL mode by default; add `*.db-shm` and `*.db-wal` to .gitignore
 - Use `db.transaction()` for bulk inserts in better-sqlite3 for performance
+- React Router v6+: Use `<Layout>` with `<Outlet />` for nested routes; `NavLink` for active styling
+- Components organized as: `src/components/layout/` (Navbar, Footer, Layout), `src/components/ui/` (Spinner, Skeleton), `src/pages/`
 
 ---
 
@@ -74,5 +76,46 @@ Thread: N/A
 - Use `db.transaction()` to wrap bulk inserts for better performance
 - Tables use `IF NOT EXISTS` for idempotent migrations
 - Database file is stored at server/restaurant.db (relative to server directory)
+
+---
+
+## 2026-01-17 - 3_CORE_COMPONENTS
+
+Thread: N/A
+
+**Implemented:**
+
+- Created responsive Navbar with mobile hamburger menu toggle (uses useState for open/close state)
+- Created Footer component with quick links, hours, and contact info
+- Created Layout component using React Router's Outlet for nested routes
+- Installed and configured react-router-dom for navigation
+- Created Home page placeholder
+- Created 404 Not Found page with return home link
+- Created Spinner component (animated loading indicator with size variants)
+- Created Skeleton component (animated placeholder for loading states)
+- Added index.js exports for both layout and ui component directories
+
+**Files Changed:**
+
+- package.json
+- package-lock.json
+- src/App.jsx
+- src/App.css (deleted)
+- src/components/layout/Navbar.jsx
+- src/components/layout/Footer.jsx
+- src/components/layout/Layout.jsx
+- src/components/layout/index.js
+- src/components/ui/Spinner.jsx
+- src/components/ui/Skeleton.jsx
+- src/components/ui/index.js
+- src/pages/Home.jsx
+- src/pages/NotFound.jsx
+
+**Learnings:**
+
+- React Router v6+ uses `<Outlet />` in layout components for nested routing
+- NavLink provides `isActive` prop via render function for active state styling
+- Mobile menu toggle pattern: useState for isOpen, conditional rendering for mobile nav
+- Tailwind's `min-h-screen` with flex layout ensures footer stays at bottom
 
 ---
