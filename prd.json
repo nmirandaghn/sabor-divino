@@ -124,7 +124,7 @@
         "GET /api/menu/:category endpoint filters by category",
         "Menu items include image URLs"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "9_ADMIN_AUTH",
