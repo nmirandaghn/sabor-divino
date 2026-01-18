@@ -1,0 +1,145 @@
+{
+  "project_meta": {
+    "name": "Sabor Divino Restaurant",
+    "stack": "React (Vite), Tailwind CSS, Node.js (Express), Better-SQLite3",
+    "branchName": "feature/sabor-divino",
+    "global_status": "pending"
+  },
+  "tasks": [
+    {
+      "id": "1_INFRA_SETUP",
+      "title": "Frontend & Backend Scaffolding",
+      "priority": 1,
+      "depends_on": [],
+      "description": "Initialize Vite project and Express server structure.",
+      "criteria": [
+        "Vite project created successfully",
+        "Tailwind CSS installed and configured",
+        "Express server structure created in /server directory",
+        "Concurrent execution script (frontend + backend) configured in package.json",
+        "Environment configuration (.env) setup for API URLs, ports, and CORS settings"
+      ],
+      "passes": false
+    },
+    {
+      "id": "2_DATABASE_INIT",
+      "title": "SQLite Database Implementation",
+      "priority": 1,
+      "depends_on": ["1_INFRA_SETUP"],
+      "description": "Setup SQLite with better-sqlite3 and migration script.",
+      "criteria": [
+        "better-sqlite3 installed",
+        "Database file 'restaurant.db' created",
+        "Table 'reservations' exists with columns: id, name, email, phone, date, time, party_size, table_num, special_requests, created_at",
+        "Table 'menu_items' exists with columns: id, name, description, price, category, image_url, is_available",
+        "Table 'users' exists with columns: id, username, password_hash, role, created_at",
+        "Seed script created to populate initial dummy data for all tables"
+      ],
+      "passes": false
+    },
+    {
+      "id": "3_CORE_COMPONENTS",
+      "title": "Core Layout Components",
+      "priority": 1,
+      "depends_on": ["1_INFRA_SETUP"],
+      "description": "Create reusable Navbar and Footer.",
+      "criteria": [
+        "Responsive Navbar with mobile menu toggle",
+        "Footer component with static links",
+        "React Router configured for navigation",
+        "404 Not Found page created",
+        "Loading spinner/skeleton component created"
+      ],
+      "passes": false
+    },
+    {
+      "id": "4_LANDING_PAGE",
+      "title": "Landing Page Implementation",
+      "priority": 2,
+      "depends_on": ["3_CORE_COMPONENTS"],
+      "description": "Hero section and main visual elements.",
+      "criteria": [
+        "Hero section with background image and CTA button",
+        "Featured dishes section displayed",
+        "Responsive design verified",
+        "Static assets (images) properly organized in /public directory"
+      ],
+      "passes": false
+    },
+    {
+      "id": "5_API_DEV",
+      "title": "Reservations API Endpoints",
+      "priority": 1,
+      "depends_on": ["2_DATABASE_INIT"],
+      "description": "Backend logic for handling reservations.",
+      "criteria": [
+        "POST /api/reservations endpoint working",
+        "GET /api/reservations endpoint working (with optional date filter)",
+        "GET /api/reservations/:id endpoint working",
+        "DELETE /api/reservations/:id endpoint working",
+        "Input validation implemented (date, time, name, email, phone, party_size)",
+        "Data successfully persists to SQLite"
+      ],
+      "passes": false
+    },
+    {
+      "id": "6_RESERVATION_UI",
+      "title": "Reservation Page & Integration",
+      "priority": 2,
+      "depends_on": ["3_CORE_COMPONENTS", "5_API_DEV"],
+      "description": "Frontend form connected to API.",
+      "criteria": [
+        "Form with date/time pickers",
+        "Party size selector",
+        "Email and phone input fields with validation",
+        "Special requests textarea",
+        "Fetch request connected to POST endpoint",
+        "Success/Error toast notifications implemented"
+      ],
+      "passes": false
+    },
+    {
+      "id": "7_STATIC_PAGES",
+      "title": "About, Contact, & Menu Pages",
+      "priority": 3,
+      "depends_on": ["3_CORE_COMPONENTS", "8_MENU_API"],
+      "description": "Remaining static content pages.",
+      "criteria": [
+        "About page with dummy text created",
+        "Contact page with visual form created",
+        "Contact page displays operating hours",
+        "Menu page fetching items from /api/menu endpoint",
+        "Menu items grouped by category"
+      ],
+      "passes": false
+    },
+    {
+      "id": "8_MENU_API",
+      "title": "Menu API Endpoints",
+      "priority": 2,
+      "depends_on": ["2_DATABASE_INIT"],
+      "description": "Backend logic for menu items.",
+      "criteria": [
+        "GET /api/menu endpoint returns all available menu items",
+        "GET /api/menu/:category endpoint filters by category",
+        "Menu items include image URLs"
+      ],
+      "passes": false
+    },
+    {
+      "id": "9_ADMIN_AUTH",
+      "title": "Admin Authentication & Panel",
+      "priority": 3,
+      "depends_on": ["5_API_DEV", "3_CORE_COMPONENTS"],
+      "description": "Secure admin area for managing reservations and menu.",
+      "criteria": [
+        "POST /api/auth/login endpoint with JWT token generation",
+        "Auth middleware protecting admin routes",
+        "Admin login page created",
+        "Admin dashboard displaying reservations list",
+        "Ability to delete/cancel reservations from admin panel"
+      ],
+      "passes": false
+    }
+  ]
+}
