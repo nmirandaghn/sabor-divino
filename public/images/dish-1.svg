@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="plate-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8f4f0"/>
+      <stop offset="100%" style="stop-color:#e8e0d8"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="#fdf8f6"/>
+  <!-- Plate -->
+  <ellipse cx="200" cy="160" rx="120" ry="90" fill="url(#plate-grad)" stroke="#d2bab0" stroke-width="2"/>
+  <ellipse cx="200" cy="160" rx="95" ry="70" fill="#fff"/>
+  <!-- Food representation -->
+  <ellipse cx="200" cy="150" rx="60" ry="40" fill="#8b6f5c"/>
+  <ellipse cx="200" cy="145" rx="50" ry="30" fill="#a18072"/>
+  <!-- Garnish -->
+  <circle cx="240" cy="135" r="8" fill="#10b981"/>
+  <circle cx="160" cy="140" r="6" fill="#10b981"/>
+  <path d="M175 125 Q180 115 190 120" stroke="#059669" stroke-width="2" fill="none"/>
+</svg>

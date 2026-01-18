@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="bowl-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8f4f0"/>
+      <stop offset="100%" style="stop-color:#e8e0d8"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="#fdf8f6"/>
+  <!-- Bowl -->
+  <ellipse cx="200" cy="180" rx="100" ry="50" fill="#d2bab0"/>
+  <ellipse cx="200" cy="140" rx="100" ry="50" fill="url(#bowl-grad)" stroke="#bfa094" stroke-width="2"/>
+  <ellipse cx="200" cy="140" rx="80" ry="35" fill="#f59e0b"/>
+  <!-- Soup/stew contents -->
+  <ellipse cx="200" cy="135" rx="70" ry="28" fill="#d97706"/>
+  <!-- Floating ingredients -->
+  <circle cx="180" cy="130" r="10" fill="#92400e"/>
+  <circle cx="220" cy="135" r="8" fill="#92400e"/>
+  <circle cx="200" cy="125" r="6" fill="#10b981"/>
+  <!-- Steam lines -->
+  <path d="M170 100 Q175 90 180 100 Q185 110 190 100" stroke="#d2bab0" stroke-width="2" fill="none" opacity="0.5"/>
+  <path d="M210 95 Q215 85 220 95 Q225 105 230 95" stroke="#d2bab0" stroke-width="2" fill="none" opacity="0.5"/>
+</svg>
