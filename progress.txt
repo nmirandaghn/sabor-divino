@@ -151,3 +151,34 @@ Thread: N/A
 - Return 201 for successful POST creations with `{ data, message }`
 
 ---
+
+## 2026-01-17 - 4_LANDING_PAGE
+
+Thread: N/A
+
+**Implemented:**
+
+- Created Hero section with full-viewport background image and dark overlay
+- Added "Reserve a Table" CTA button linking to /reservations
+- Added secondary "View Our Menu" button linking to /menu
+- Created Featured Dishes section with 3 hardcoded dishes (will use API later)
+- Each dish card shows image, name, description, and price
+- Added Call to Action section at bottom with reservation CTA
+- Created SVG placeholder images for hero background and dishes in /public/images
+
+**Files Changed:**
+
+- src/pages/Home.jsx (complete rewrite)
+- public/images/hero-bg.svg (new)
+- public/images/dish-1.svg (new)
+- public/images/dish-2.svg (new)
+- public/images/dish-3.svg (new)
+
+**Learnings:**
+
+- Use `min-h-[70vh]` for hero sections to ensure good viewport coverage
+- SVG images work well as placeholders for development; replace with real photos in production
+- Use `bg-black/40` overlay on hero background images to ensure text readability
+- Responsive grid: `grid-cols-1 md:grid-cols-2 lg:grid-cols-3` for featured items
+
+---
