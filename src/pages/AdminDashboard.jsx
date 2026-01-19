@@ -1,25 +1,25 @@
-import { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Spinner, Toast } from '../components/ui';
+import { useState, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import { Spinner, Toast } from "../components/ui";
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+// const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 
 // Format date for display
 const formatDate = (dateStr) => {
-  const date = new Date(dateStr + 'T00:00:00');
-  return date.toLocaleDateString('en-US', {
-    weekday: 'short',
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
+  const date = new Date(dateStr + "T00:00:00");
+  return date.toLocaleDateString("en-US", {
+    weekday: "short",
+    year: "numeric",
+    month: "short",
+    day: "numeric",
   });
 };
 
 // Format time for display (12-hour format)
 const formatTime = (time24) => {
-  const [hours, minutes] = time24.split(':');
+  const [hours, minutes] = time24.split(":");
   const hour = parseInt(hours, 10);
-  const ampm = hour >= 12 ? 'PM' : 'AM';
+  const ampm = hour >= 12 ? "PM" : "AM";
   const hour12 = hour % 12 || 12;
   return `${hour12}:${minutes} ${ampm}`;
 };
@@ -32,42 +32,42 @@ export default function AdminDashboard() {
   const [deletingId, setDeletingId] = useState(null);
 
   const getAuthToken = useCallback(() => {
-    return localStorage.getItem('adminToken');
+    return localStorage.getItem("adminToken");
   }, []);
 
   const fetchReservations = useCallback(async () => {
     const token = getAuthToken();
 
     if (!token) {
-      navigate('/admin/login');
+      navigate("/admin/login");
       return;
     }
 
     try {
-      const response = await fetch(`${API_URL}/admin/reservations`, {
+      const response = await fetch(`/api/admin/reservations`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
       if (response.status === 401) {
-        localStorage.removeItem('adminToken');
-        localStorage.removeItem('adminUser');
-        navigate('/admin/login');
+        localStorage.removeItem("adminToken");
+        localStorage.removeItem("adminUser");
+        navigate("/admin/login");
         return;
       }
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to fetch reservations');
+        throw new Error(data.error || "Failed to fetch reservations");
       }
 
       setReservations(data.data);
     } catch (error) {
       setToast({
-        type: 'error',
-        message: error.message || 'Failed to load reservations',
+        type: "error",
+        message: error.message || "Failed to load reservations",
       });
     } finally {
       setIsLoading(false);
@@ -82,48 +82,48 @@ export default function AdminDashboard() {
     const token = getAuthToken();
 
     if (!token) {
-      navigate('/admin/login');
+      navigate("/admin/login");
       return;
     }
 
-    if (!window.confirm('Are you sure you want to cancel this reservation?')) {
+    if (!window.confirm("Are you sure you want to cancel this reservation?")) {
       return;
     }
 
     setDeletingId(id);
 
     try {
-      const response = await fetch(`${API_URL}/admin/reservations/${id}`, {
-        method: 'DELETE',
+      const response = await fetch(`/api/admin/reservations/${id}`, {
+        method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
       if (response.status === 401) {
-        localStorage.removeItem('adminToken');
-        localStorage.removeItem('adminUser');
-        navigate('/admin/login');
+        localStorage.removeItem("adminToken");
+        localStorage.removeItem("adminUser");
+        navigate("/admin/login");
         return;
       }
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to cancel reservation');
+        throw new Error(data.error || "Failed to cancel reservation");
       }
 
       setToast({
-        type: 'success',
-        message: 'Reservation cancelled successfully',
+        type: "success",
+        message: "Reservation cancelled successfully",
       });
 
       // Remove from list
       setReservations((prev) => prev.filter((r) => r.id !== id));
     } catch (error) {
       setToast({
-        type: 'error',
-        message: error.message || 'Failed to cancel reservation',
+        type: "error",
+        message: error.message || "Failed to cancel reservation",
       });
     } finally {
       setDeletingId(null);
@@ -131,9 +131,9 @@ export default function AdminDashboard() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('adminToken');
-    localStorage.removeItem('adminUser');
-    navigate('/admin/login');
+    localStorage.removeItem("adminToken");
+    localStorage.removeItem("adminUser");
+    navigate("/admin/login");
   };
 
   if (isLoading) {
@@ -193,7 +193,7 @@ export default function AdminDashboard() {
             <p className="mt-1 text-3xl font-bold text-accent-600">
               {
                 reservations.filter(
-                  (r) => r.date === new Date().toISOString().split('T')[0]
+                  (r) => r.date === new Date().toISOString().split("T")[0],
                 ).length
               }
             </p>
@@ -203,7 +203,7 @@ export default function AdminDashboard() {
             <p className="mt-1 text-3xl font-bold text-secondary-600">
               {
                 reservations.filter(
-                  (r) => r.date >= new Date().toISOString().split('T')[0]
+                  (r) => r.date >= new Date().toISOString().split("T")[0],
                 ).length
               }
             </p>
@@ -228,7 +228,9 @@ export default function AdminDashboard() {
                 />
               </svg>
               <p className="text-lg font-medium">No reservations yet</p>
-              <p className="mt-1">Reservations will appear here when customers book tables.</p>
+              <p className="mt-1">
+                Reservations will appear here when customers book tables.
+              </p>
             </div>
           ) : (
             <div className="overflow-x-auto">
@@ -260,9 +262,10 @@ export default function AdminDashboard() {
                     <tr
                       key={reservation.id}
                       className={
-                        reservation.date < new Date().toISOString().split('T')[0]
-                          ? 'bg-gray-50 opacity-60'
-                          : ''
+                        reservation.date <
+                        new Date().toISOString().split("T")[0]
+                          ? "bg-gray-50 opacity-60"
+                          : ""
                       }
                     >
                       <td className="px-6 py-4 whitespace-nowrap">
@@ -280,8 +283,8 @@ export default function AdminDashboard() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
-                          {reservation.party_size}{' '}
-                          {reservation.party_size === 1 ? 'guest' : 'guests'}
+                          {reservation.party_size}{" "}
+                          {reservation.party_size === 1 ? "guest" : "guests"}
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
@@ -294,7 +297,7 @@ export default function AdminDashboard() {
                       </td>
                       <td className="px-6 py-4">
                         <div className="text-sm text-gray-500 max-w-xs truncate">
-                          {reservation.special_requests || '-'}
+                          {reservation.special_requests || "-"}
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">

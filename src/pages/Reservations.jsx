@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { Toast, Spinner } from '../components/ui';
+import { useState } from "react";
+import { Toast, Spinner } from "../components/ui";
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+// const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 
 // Validation patterns matching backend
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -11,9 +11,9 @@ const phoneRegex = /^[\d\s\-+()]{7,20}$/;
 const generateTimeSlots = () => {
   const slots = [];
   for (let hour = 11; hour <= 21; hour++) {
-    for (const minutes of ['00', '30']) {
-      if (hour === 21 && minutes === '30') break; // Last slot at 21:00
-      const time = `${hour.toString().padStart(2, '0')}:${minutes}`;
+    for (const minutes of ["00", "30"]) {
+      if (hour === 21 && minutes === "30") break; // Last slot at 21:00
+      const time = `${hour.toString().padStart(2, "0")}:${minutes}`;
       slots.push(time);
     }
   }
@@ -24,9 +24,9 @@ const timeSlots = generateTimeSlots();
 
 // Format time for display (12-hour format)
 const formatTime = (time24) => {
-  const [hours, minutes] = time24.split(':');
+  const [hours, minutes] = time24.split(":");
   const hour = parseInt(hours, 10);
-  const ampm = hour >= 12 ? 'PM' : 'AM';
+  const ampm = hour >= 12 ? "PM" : "AM";
   const hour12 = hour % 12 || 12;
   return `${hour12}:${minutes} ${ampm}`;
 };
@@ -34,25 +34,25 @@ const formatTime = (time24) => {
 // Get today's date in YYYY-MM-DD format
 const getTodayDate = () => {
   const today = new Date();
-  return today.toISOString().split('T')[0];
+  return today.toISOString().split("T")[0];
 };
 
 // Get date 60 days from now for max date
 const getMaxDate = () => {
   const date = new Date();
   date.setDate(date.getDate() + 60);
-  return date.toISOString().split('T')[0];
+  return date.toISOString().split("T")[0];
 };
 
 export default function Reservations() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    date: '',
-    time: '',
-    party_size: '',
-    special_requests: '',
+    name: "",
+    email: "",
+    phone: "",
+    date: "",
+    time: "",
+    party_size: "",
+    special_requests: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -61,35 +61,35 @@ export default function Reservations() {
 
   const validateField = (name, value) => {
     switch (name) {
-      case 'name':
+      case "name":
         if (!value || value.trim().length < 2) {
-          return 'Name must be at least 2 characters';
+          return "Name must be at least 2 characters";
         }
         break;
-      case 'email':
+      case "email":
         if (!value || !emailRegex.test(value)) {
-          return 'Please enter a valid email address';
+          return "Please enter a valid email address";
         }
         break;
-      case 'phone':
+      case "phone":
         if (!value || !phoneRegex.test(value)) {
-          return 'Please enter a valid phone number';
+          return "Please enter a valid phone number";
         }
         break;
-      case 'date':
+      case "date":
         if (!value) {
-          return 'Please select a date';
+          return "Please select a date";
         }
         break;
-      case 'time':
+      case "time":
         if (!value) {
-          return 'Please select a time';
+          return "Please select a time";
         }
         break;
-      case 'party_size': {
+      case "party_size": {
         const size = parseInt(value, 10);
         if (!value || isNaN(size) || size < 1 || size > 20) {
-          return 'Party size must be between 1 and 20';
+          return "Party size must be between 1 and 20";
         }
         break;
       }
@@ -119,7 +119,7 @@ export default function Reservations() {
 
   const validateForm = () => {
     const newErrors = {};
-    const fields = ['name', 'email', 'phone', 'date', 'time', 'party_size'];
+    const fields = ["name", "email", "phone", "date", "time", "party_size"];
 
     fields.forEach((field) => {
       const error = validateField(field, formData[field]);
@@ -142,10 +142,10 @@ export default function Reservations() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(`${API_URL}/reservations`, {
-        method: 'POST',
+      const response = await fetch(`/api/reservations`, {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           ...formData,
@@ -156,28 +156,28 @@ export default function Reservations() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to create reservation');
+        throw new Error(data.error || "Failed to create reservation");
       }
 
       // Success - show toast and reset form
       setToast({
-        type: 'success',
-        message: 'Reservation confirmed! We look forward to seeing you.',
+        type: "success",
+        message: "Reservation confirmed! We look forward to seeing you.",
       });
 
       setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        date: '',
-        time: '',
-        party_size: '',
-        special_requests: '',
+        name: "",
+        email: "",
+        phone: "",
+        date: "",
+        time: "",
+        party_size: "",
+        special_requests: "",
       });
     } catch (error) {
       setToast({
-        type: 'error',
-        message: error.message || 'Something went wrong. Please try again.',
+        type: "error",
+        message: error.message || "Something went wrong. Please try again.",
       });
     } finally {
       setIsSubmitting(false);
@@ -187,8 +187,8 @@ export default function Reservations() {
   const inputClasses = (fieldName) =>
     `w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-colors ${
       errors[fieldName]
-        ? 'border-red-500 focus:ring-red-200'
-        : 'border-gray-300 focus:ring-primary-200 focus:border-primary-500'
+        ? "border-red-500 focus:ring-red-200"
+        : "border-gray-300 focus:ring-primary-200 focus:border-primary-500"
     }`;
 
   return (
@@ -200,7 +200,8 @@ export default function Reservations() {
             Make a Reservation
           </h1>
           <p className="text-gray-600 text-lg">
-            Reserve your table and enjoy an unforgettable dining experience at Sabor Divino.
+            Reserve your table and enjoy an unforgettable dining experience at
+            Sabor Divino.
           </p>
         </div>
 
@@ -211,7 +212,10 @@ export default function Reservations() {
         >
           {/* Name Field */}
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
               Full Name <span className="text-red-500">*</span>
             </label>
             <input
@@ -222,16 +226,21 @@ export default function Reservations() {
               onChange={handleChange}
               onBlur={handleBlur}
               placeholder="John Doe"
-              className={inputClasses('name')}
+              className={inputClasses("name")}
               disabled={isSubmitting}
             />
-            {errors.name && <p className="mt-1 text-sm text-red-500">{errors.name}</p>}
+            {errors.name && (
+              <p className="mt-1 text-sm text-red-500">{errors.name}</p>
+            )}
           </div>
 
           {/* Email and Phone Row */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Email <span className="text-red-500">*</span>
               </label>
               <input
@@ -242,13 +251,18 @@ export default function Reservations() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 placeholder="john@example.com"
-                className={inputClasses('email')}
+                className={inputClasses("email")}
                 disabled={isSubmitting}
               />
-              {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email}</p>}
+              {errors.email && (
+                <p className="mt-1 text-sm text-red-500">{errors.email}</p>
+              )}
             </div>
             <div>
-              <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="phone"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Phone <span className="text-red-500">*</span>
               </label>
               <input
@@ -259,17 +273,22 @@ export default function Reservations() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 placeholder="(555) 123-4567"
-                className={inputClasses('phone')}
+                className={inputClasses("phone")}
                 disabled={isSubmitting}
               />
-              {errors.phone && <p className="mt-1 text-sm text-red-500">{errors.phone}</p>}
+              {errors.phone && (
+                <p className="mt-1 text-sm text-red-500">{errors.phone}</p>
+              )}
             </div>
           </div>
 
           {/* Date and Time Row */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label htmlFor="date" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="date"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Date <span className="text-red-500">*</span>
               </label>
               <input
@@ -281,13 +300,18 @@ export default function Reservations() {
                 onBlur={handleBlur}
                 min={getTodayDate()}
                 max={getMaxDate()}
-                className={inputClasses('date')}
+                className={inputClasses("date")}
                 disabled={isSubmitting}
               />
-              {errors.date && <p className="mt-1 text-sm text-red-500">{errors.date}</p>}
+              {errors.date && (
+                <p className="mt-1 text-sm text-red-500">{errors.date}</p>
+              )}
             </div>
             <div>
-              <label htmlFor="time" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="time"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Time <span className="text-red-500">*</span>
               </label>
               <select
@@ -296,7 +320,7 @@ export default function Reservations() {
                 value={formData.time}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                className={inputClasses('time')}
+                className={inputClasses("time")}
                 disabled={isSubmitting}
               >
                 <option value="">Select a time</option>
@@ -306,13 +330,18 @@ export default function Reservations() {
                   </option>
                 ))}
               </select>
-              {errors.time && <p className="mt-1 text-sm text-red-500">{errors.time}</p>}
+              {errors.time && (
+                <p className="mt-1 text-sm text-red-500">{errors.time}</p>
+              )}
             </div>
           </div>
 
           {/* Party Size */}
           <div>
-            <label htmlFor="party_size" className="block text-sm font-medium text-gray-700 mb-2">
+            <label
+              htmlFor="party_size"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
               Party Size <span className="text-red-500">*</span>
             </label>
             <select
@@ -321,13 +350,13 @@ export default function Reservations() {
               value={formData.party_size}
               onChange={handleChange}
               onBlur={handleBlur}
-              className={inputClasses('party_size')}
+              className={inputClasses("party_size")}
               disabled={isSubmitting}
             >
               <option value="">Select party size</option>
               {[...Array(20)].map((_, i) => (
                 <option key={i + 1} value={i + 1}>
-                  {i + 1} {i === 0 ? 'Guest' : 'Guests'}
+                  {i + 1} {i === 0 ? "Guest" : "Guests"}
                 </option>
               ))}
             </select>
@@ -368,14 +397,14 @@ export default function Reservations() {
                 <span>Submitting...</span>
               </>
             ) : (
-              'Confirm Reservation'
+              "Confirm Reservation"
             )}
           </button>
 
           {/* Info Note */}
           <p className="text-sm text-gray-500 text-center">
-            By making a reservation, you agree to our cancellation policy. Please arrive within 15
-            minutes of your reservation time.
+            By making a reservation, you agree to our cancellation policy.
+            Please arrive within 15 minutes of your reservation time.
           </p>
         </form>
       </div>

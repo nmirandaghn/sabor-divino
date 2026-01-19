@@ -1,15 +1,15 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Spinner } from '../components/ui';
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Spinner } from "../components/ui";
 
 const categoryLabels = {
-  appetizers: 'Appetizers',
-  main: 'Main Courses',
-  desserts: 'Desserts',
-  beverages: 'Beverages',
+  appetizers: "Appetizers",
+  main: "Main Courses",
+  desserts: "Desserts",
+  beverages: "Beverages",
 };
 
-const categoryOrder = ['appetizers', 'main', 'desserts', 'beverages'];
+const categoryOrder = ["appetizers", "main", "desserts", "beverages"];
 
 export default function Menu() {
   const [menuItems, setMenuItems] = useState([]);
@@ -20,11 +20,11 @@ export default function Menu() {
   useEffect(() => {
     const fetchMenu = async () => {
       try {
-        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
-        const response = await fetch(`${apiUrl}/menu`);
+        // const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+        const response = await fetch(`/api/menu`);
 
         if (!response.ok) {
-          throw new Error('Failed to fetch menu');
+          throw new Error("Failed to fetch menu");
         }
 
         const result = await response.json();
@@ -50,14 +50,14 @@ export default function Menu() {
 
   // Get available categories in the correct order
   const availableCategories = categoryOrder.filter(
-    (cat) => groupedItems[cat] && groupedItems[cat].length > 0
+    (cat) => groupedItems[cat] && groupedItems[cat].length > 0,
   );
 
   const scrollToCategory = (category) => {
     setActiveCategory(category);
     const element = document.getElementById(`category-${category}`);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
@@ -86,8 +86,8 @@ export default function Menu() {
                   onClick={() => scrollToCategory(category)}
                   className={`px-4 py-2 rounded-full font-medium transition-colors duration-200 whitespace-nowrap ${
                     activeCategory === category
-                      ? 'bg-primary-700 text-white'
-                      : 'bg-primary-100 text-primary-700 hover:bg-primary-200'
+                      ? "bg-primary-700 text-white"
+                      : "bg-primary-100 text-primary-700 hover:bg-primary-200"
                   }`}
                 >
                   {categoryLabels[category]}
@@ -111,10 +111,22 @@ export default function Menu() {
           {error && (
             <div className="text-center py-20">
               <div className="bg-red-50 border border-red-200 rounded-lg p-6 max-w-md mx-auto">
-                <svg className="w-12 h-12 text-red-500 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                <svg
+                  className="w-12 h-12 text-red-500 mx-auto mb-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                  />
                 </svg>
-                <h3 className="text-lg font-semibold text-red-800 mb-2">Unable to load menu</h3>
+                <h3 className="text-lg font-semibold text-red-800 mb-2">
+                  Unable to load menu
+                </h3>
                 <p className="text-red-600">{error}</p>
                 <button
                   onClick={() => window.location.reload()}
@@ -128,14 +140,20 @@ export default function Menu() {
 
           {!isLoading && !error && menuItems.length === 0 && (
             <div className="text-center py-20">
-              <p className="text-gray-600">No menu items available at the moment.</p>
+              <p className="text-gray-600">
+                No menu items available at the moment.
+              </p>
             </div>
           )}
 
           {!isLoading && !error && menuItems.length > 0 && (
             <div className="space-y-16">
               {availableCategories.map((category) => (
-                <div key={category} id={`category-${category}`} className="scroll-mt-20">
+                <div
+                  key={category}
+                  id={`category-${category}`}
+                  className="scroll-mt-20"
+                >
                   <h2 className="text-3xl font-bold text-primary-800 mb-8 text-center">
                     {categoryLabels[category]}
                   </h2>
@@ -152,18 +170,22 @@ export default function Menu() {
                             className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                             onError={(e) => {
                               e.target.onerror = null;
-                              e.target.src = '/images/dish-placeholder.svg';
+                              e.target.src = "/images/dish-placeholder.svg";
                             }}
                           />
                         </div>
                         <div className="p-5">
                           <div className="flex justify-between items-start mb-2">
-                            <h3 className="text-lg font-semibold text-primary-800">{item.name}</h3>
+                            <h3 className="text-lg font-semibold text-primary-800">
+                              {item.name}
+                            </h3>
                             <span className="text-secondary-600 font-bold text-lg">
                               ${Number(item.price).toFixed(2)}
                             </span>
                           </div>
-                          <p className="text-gray-600 text-sm">{item.description}</p>
+                          <p className="text-gray-600 text-sm">
+                            {item.description}
+                          </p>
                         </div>
                       </article>
                     ))}
