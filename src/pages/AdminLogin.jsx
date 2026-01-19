@@ -1,14 +1,14 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Spinner, Toast } from '../components/ui';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Spinner, Toast } from "../components/ui";
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001/api";
 
 export default function AdminLogin() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    username: '',
-    password: '',
+    username: "",
+    password: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [toast, setToast] = useState(null);
@@ -23,8 +23,8 @@ export default function AdminLogin() {
 
     if (!formData.username || !formData.password) {
       setToast({
-        type: 'error',
-        message: 'Please enter both username and password',
+        type: "error",
+        message: "Please enter both username and password",
       });
       return;
     }
@@ -33,9 +33,9 @@ export default function AdminLogin() {
 
     try {
       const response = await fetch(`${API_URL}/auth/login`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
@@ -43,19 +43,19 @@ export default function AdminLogin() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Login failed');
+        throw new Error(data.error || "Login failed");
       }
 
       // Store token in localStorage
-      localStorage.setItem('adminToken', data.data.token);
-      localStorage.setItem('adminUser', JSON.stringify(data.data.user));
+      localStorage.setItem("adminToken", data.data.token);
+      localStorage.setItem("adminUser", JSON.stringify(data.data.user));
 
       // Redirect to admin dashboard
-      navigate('/admin');
+      navigate("/admin/dashboard");
     } catch (error) {
       setToast({
-        type: 'error',
-        message: error.message || 'Invalid credentials. Please try again.',
+        type: "error",
+        message: error.message || "Invalid credentials. Please try again.",
       });
     } finally {
       setIsSubmitting(false);
@@ -68,9 +68,7 @@ export default function AdminLogin() {
         {/* Header */}
         <div className="text-center">
           <h1 className="text-3xl font-bold text-primary-800">Admin Login</h1>
-          <p className="mt-2 text-gray-600">
-            Sign in to manage reservations
-          </p>
+          <p className="mt-2 text-gray-600">Sign in to manage reservations</p>
         </div>
 
         {/* Login Form */}
@@ -132,7 +130,7 @@ export default function AdminLogin() {
                 <span>Signing in...</span>
               </>
             ) : (
-              'Sign In'
+              "Sign In"
             )}
           </button>
         </form>

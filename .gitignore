@@ -26,6 +26,9 @@ dist-ssr
 # Environment variables
 .env
 !.env.example
+.env.local
+.env.production
+.env*.local
 
 # Database
 *.db
