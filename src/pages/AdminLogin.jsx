@@ -2,8 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Spinner, Toast } from "../components/ui";
 
-// const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001/api";
-
 export default function AdminLogin() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({

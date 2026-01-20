@@ -14,3 +14,24 @@ The React Compiler is not enabled on this template because of its impact on dev 
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+## 🌐 Live Demo
+
+⚠️ **Note:** The live demo is currently unavailable due to SQLite limitations in serverless environments.
+
+👉 **To see the full application in action:** Clone the repository and run locally.
+
+```bash
+git clone https://github.com/nmirandaghn/sabor-divino
+cd sabor-divino
+npm install
+npm run dev
+```
+
+The local version includes:
+
+- ✅ Full SQLite database with persistent reservations
+- ✅ Complete CRUD operations
+- ✅ Admin dashboard with authentication
+
+For production deployment, consider using [Railway](https://railway.app) or [Render](https://render.com) which support SQLite with persistent volumes.

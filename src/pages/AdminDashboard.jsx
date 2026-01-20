@@ -2,8 +2,6 @@ import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Spinner, Toast } from "../components/ui";
 
-// const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
-
 // Format date for display
 const formatDate = (dateStr) => {
   const date = new Date(dateStr + "T00:00:00");

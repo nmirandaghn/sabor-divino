@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { Toast, Spinner } from "../components/ui";
 
-// const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
-
 // Validation patterns matching backend
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const phoneRegex = /^[\d\s\-+()]{7,20}$/;

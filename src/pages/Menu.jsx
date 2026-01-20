@@ -20,7 +20,6 @@ export default function Menu() {
   useEffect(() => {
     const fetchMenu = async () => {
       try {
-        // const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
         const response = await fetch(`/api/menu`);
 
         if (!response.ok) {
